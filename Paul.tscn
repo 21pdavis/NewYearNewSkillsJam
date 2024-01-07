@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://btlv82svwa3jw"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="TileMap" type="TileMap" parent="."]
+format = 2
