@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://0x18wmdj6rv3"]
+
+[ext_resource type="Texture2D" uid="uid://cxppfbq1s86dt" path="res://Sprites/Vine.png" id="1_h3138"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iio7f"]
+size = Vector2(2, 8)
+
+[node name="VineSegment" type="RigidBody2D"]
+
+[node name="Vine" type="Sprite2D" parent="."]
+texture = ExtResource("1_h3138")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_iio7f")

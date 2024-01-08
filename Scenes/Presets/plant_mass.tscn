@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://by3ifh1e0x8xv"]
+
+[ext_resource type="Script" path="res://Scenes/plant_mass.gd" id="1_6quk4"]
+[ext_resource type="Texture2D" uid="uid://cj870ap0qec2o" path="res://Sprites/PlantMass.png" id="2_wk5wn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iep31"]
+radius = 24.0
+
+[node name="PlantMass" type="RigidBody2D"]
+position = Vector2(136, -81)
+script = ExtResource("1_6quk4")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_wk5wn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_iep31")
+
+[node name="VinePoint" type="Node2D" parent="."]
+position = Vector2(0, -24)

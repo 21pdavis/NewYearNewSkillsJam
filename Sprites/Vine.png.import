@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cj870ap0qec2o"
-path="res://.godot/imported/PlantMass.png-f6827093d24f434171659f4261b887c2.ctex"
+uid="uid://cxppfbq1s86dt"
+path="res://.godot/imported/Vine.png-5c3f193acfe903344528c7ffc1a9b4f8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://PlantMass.png"
-dest_files=["res://.godot/imported/PlantMass.png-f6827093d24f434171659f4261b887c2.ctex"]
+source_file="res://Sprites/Vine.png"
+dest_files=["res://.godot/imported/Vine.png-5c3f193acfe903344528c7ffc1a9b4f8.ctex"]
 
 [params]
 
