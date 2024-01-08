@@ -1,6 +1,8 @@
 extends Node2D
 
-signal init_vine
+var vine_segment := preload("res://Scenes/Presets/vine_segment.tscn")
+var segments: Array[RigidBody2D]
+var joints: Array[PinJoint2D]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -12,4 +14,4 @@ func _process(delta):
 
 func draw_vine(end):
 	var start := position
-	print(end)
+	# TODO: add vines here

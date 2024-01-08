@@ -59,6 +59,7 @@ position = Vector2(140, -75)
 
 [node name="VineContainer" type="Node2D" parent="."]
 position = Vector2(66, -84)
+rotation = -1.03938
 
 [node name="VineRoot" type="StaticBody2D" parent="VineContainer"]
 position = Vector2(0, 9)
@@ -75,20 +76,20 @@ node_b = NodePath("../VineSegment")
 position = Vector2(0, 13)
 
 [node name="PinJoint2D2" type="PinJoint2D" parent="VineContainer"]
-position = Vector2(0, 16)
+position = Vector2(0, 17)
 node_a = NodePath("../VineSegment")
 node_b = NodePath("../VineSegment2")
 
 [node name="VineSegment2" parent="VineContainer" instance=ExtResource("6_kniv0")]
-position = Vector2(0, 20)
+position = Vector2(0, 21)
 
 [node name="PinJoint2D3" type="PinJoint2D" parent="VineContainer"]
-position = Vector2(0, 23)
+position = Vector2(0, 25)
 node_a = NodePath("../VineSegment2")
 node_b = NodePath("../VineSegment3")
 
 [node name="VineSegment3" parent="VineContainer" instance=ExtResource("6_kniv0")]
-position = Vector2(0, 27)
+position = Vector2(0, 29)
 
 [node name="Vine" parent="." instance=ExtResource("7_cnt8t")]
 position = Vector2(136, -160)
