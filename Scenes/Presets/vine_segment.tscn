@@ -6,8 +6,9 @@
 size = Vector2(2, 8)
 
 [node name="VineSegment" type="RigidBody2D"]
+collision_mask = 3
 
-[node name="Vine" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_h3138")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
