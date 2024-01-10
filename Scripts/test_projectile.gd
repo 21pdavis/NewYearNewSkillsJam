@@ -4,8 +4,8 @@ extends Area2D
 
 @onready var sprite := $Sprite as Sprite2D
 
-#func _draw():
-	#draw_line(Vector2.ZERO, to_local(position + (sprite.texture.get_height()) * transform.x), Color.AQUA, 1)
+func _ready():
+	add_to_group("vine_slicer")
 
 func _process(delta):
 	position += speed * delta * transform.x
