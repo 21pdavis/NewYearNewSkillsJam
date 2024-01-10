@@ -32,9 +32,5 @@ func _physics_process(delta):
 		get_tree().current_scene.add_child(vine_instance)
 		vine_instance.position = intersection_point
 		# TODO: global?
-		vine_instance.draw_vine(vine_raycast)
+		vine_instance.draw_vine(vine_raycast, 10)
 		vine_spawned = true;
-		
-#func _draw():
-	#if debug_intersection_point != Vector2.ZERO:
-		#draw_circle(to_local(debug_intersection_point), 2, Color.GREEN)

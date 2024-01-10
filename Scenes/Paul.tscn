@@ -1,11 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://btlv82svwa3jw"]
+[gd_scene load_steps=7 format=3 uid="uid://btlv82svwa3jw"]
 
 [ext_resource type="Texture2D" uid="uid://bd1gesbstdfxc" path="res://Sprites/Tilesheets/TilesheetTest.png" id="1_3g64b"]
 [ext_resource type="PackedScene" uid="uid://boae7ohwhe7vv" path="res://Scenes/Presets/enemy.tscn" id="2_1eg6q"]
-[ext_resource type="Texture2D" uid="uid://cfy01nwt63k4i" path="res://Sprites/Characters/PlantFella1.png" id="2_e8ddv"]
-[ext_resource type="Script" path="res://Scenes/movement_test.gd" id="3_wglye"]
+[ext_resource type="PackedScene" uid="uid://bhcyrg0em5dfa" path="res://Scenes/Presets/test_player.tscn" id="3_4qph6"]
 [ext_resource type="PackedScene" uid="uid://by3ifh1e0x8xv" path="res://Scenes/Presets/plant_mass.tscn" id="5_hmo78"]
-[ext_resource type="PackedScene" uid="uid://0x18wmdj6rv3" path="res://Scenes/Presets/vine_segment.tscn" id="6_kniv0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tguu2"]
 texture = ExtResource("1_3g64b")
@@ -23,12 +21,6 @@ physics_layer_0/collision_layer = 2
 physics_layer_0/collision_mask = 3
 sources/0 = SubResource("TileSetAtlasSource_tguu2")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2jpo2"]
-size = Vector2(14, 13)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_28s3l"]
-size = Vector2(1, 1)
-
 [node name="Node2D" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -43,54 +35,14 @@ position = Vector2(29, -8)
 position = Vector2(138, -90)
 zoom = Vector2(3.45, 3.45)
 
-[node name="Player" type="CharacterBody2D" parent="."]
-position = Vector2(207, -8)
-collision_mask = 3
-script = ExtResource("3_wglye")
-
-[node name="PlantFella1" type="Sprite2D" parent="Player"]
-texture = ExtResource("2_e8ddv")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-position = Vector2(0, 1.5)
-shape = SubResource("RectangleShape2D_2jpo2")
+[node name="TestPlayer" parent="." instance=ExtResource("3_4qph6")]
 
 [node name="PlantMass" parent="." instance=ExtResource("5_hmo78")]
-position = Vector2(97, -107)
-rotation = 0.770594
+position = Vector2(202, -93)
+rotation = -0.440095
 collision_mask = 3
 
-[node name="VineContainer" type="Node2D" parent="."]
-visible = false
-position = Vector2(66, -84)
-rotation = -1.03938
-
-[node name="VineRoot" type="StaticBody2D" parent="VineContainer"]
-position = Vector2(0, 9)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="VineContainer/VineRoot"]
-shape = SubResource("RectangleShape2D_28s3l")
-
-[node name="PinJoint2D" type="PinJoint2D" parent="VineContainer"]
-position = Vector2(0, 9)
-node_a = NodePath("../VineRoot")
-node_b = NodePath("../VineSegment")
-
-[node name="VineSegment" parent="VineContainer" instance=ExtResource("6_kniv0")]
-position = Vector2(0, 13)
-
-[node name="PinJoint2D2" type="PinJoint2D" parent="VineContainer"]
-position = Vector2(0, 17)
-node_a = NodePath("../VineSegment")
-node_b = NodePath("../VineSegment2")
-
-[node name="VineSegment2" parent="VineContainer" instance=ExtResource("6_kniv0")]
-position = Vector2(0, 21)
-
-[node name="PinJoint2D3" type="PinJoint2D" parent="VineContainer"]
-position = Vector2(0, 25)
-node_a = NodePath("../VineSegment2")
-node_b = NodePath("../VineSegment3")
-
-[node name="VineSegment3" parent="VineContainer" instance=ExtResource("6_kniv0")]
-position = Vector2(0, 29)
+[node name="PlantMass2" parent="." instance=ExtResource("5_hmo78")]
+position = Vector2(57, -67)
+rotation = 0.155464
+collision_mask = 3

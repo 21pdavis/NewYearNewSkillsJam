@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://boae7ohwhe7vv"]
 
 [ext_resource type="Texture2D" uid="uid://cfy01nwt63k4i" path="res://Sprites/Characters/PlantFella1.png" id="1_y7t28"]
-[ext_resource type="Script" path="res://Scenes/Presets/enemy.gd" id="2_qsxt0"]
+[ext_resource type="Script" path="res://Scripts/enemy.gd" id="2_qsxt0"]
 
 [node name="Enemy" type="Sprite2D"]
 position = Vector2(10, -8)

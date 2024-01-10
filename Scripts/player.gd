@@ -4,10 +4,21 @@ extends CharacterBody2D
 const SPEED = 6000
 const JUMP_VELOCITY = -400.0
 
+var projectile := preload("res://Scenes/Presets/test_projectile.tscn")
+@onready var sprite := $Sprite as Sprite2D
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-
+func _process(delta):
+	if Input.is_action_just_pressed("fire"):
+		var projectile_instance = projectile.instantiate()
+		get_tree().current_scene.add_child(projectile_instance)
+		
+		var mouse_pos := get_global_mouse_position()
+		projectile_instance.global_position = global_position + (sprite.texture.get_width() as float / 1.5) * (mouse_pos - global_position).normalized()
+		projectile_instance.look_at(mouse_pos)
+		
 func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
