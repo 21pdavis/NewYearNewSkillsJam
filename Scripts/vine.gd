@@ -59,3 +59,7 @@ func draw_vine(attach_point: Node2D, vine_num: int):
 		else:
 			current_joint.node_a = segments[i].get_path()
 			current_joint.node_b = segments[i - 1].get_path()
+
+func sever_segment(idx: int):
+	joints[idx].queue_free()
+	joints.remove_at(idx)
