@@ -5,6 +5,7 @@ var vine_segment := preload("res://Scenes/Presets/vine_segment.tscn")
 @onready var anchor: StaticBody2D = $Anchor
 var segments: Array[RigidBody2D] = []
 var joints: Array[PinJoint2D] = []
+var severed_joint_indexes: Array[int] = []
 
 func _ready():
 	add_to_group("vine")
@@ -64,5 +65,6 @@ func draw_vine(attach_point: Node2D, vine_num: int):
 			current_joint.node_b = segments[i - 1].get_path()
 
 func sever_segment(idx: int):
-	joints[idx].queue_free()
-	joints.remove_at(idx)
+	if not idx in severed_joint_indexes:
+		joints[idx].queue_free()
+		severed_joint_indexes.append(idx)
