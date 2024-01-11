@@ -12,3 +12,4 @@ script = ExtResource("1_6uanf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Anchor"]
 shape = SubResource("RectangleShape2D_ttle2")
+disabled = true

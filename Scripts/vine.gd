@@ -13,8 +13,11 @@ func _ready():
 func _process(_delta):
 	queue_redraw()
 
-func draw_vine(attach_point: Node2D, vine_num: int):
-	var spawn_direction := (attach_point.global_position - global_position).normalized()
+func generate_vine(vine_num: int, attach_point: Node2D = null):
+	var spawn_direction := (
+		(attach_point.global_position - global_position).normalized() if attach_point
+		else transform.y
+	)
 	
 	# create and position vines
 	# TODO: off by a pixel here, should add 1 in some places
@@ -26,17 +29,20 @@ func draw_vine(attach_point: Node2D, vine_num: int):
 		segments.append(current_segment)
 		
 		# position and rotate segment
-		# TODO: rotation
 		var segment_sprite := current_segment.get_node("Sprite") as Sprite2D
 		var sprite_height := segment_sprite.texture.get_height()
 		# 1/2 --> 3/2 --> etc. (pivot at center of segment)
 		current_segment.position = (i + 0.5) * sprite_height * spawn_direction
-		current_segment.look_at(attach_point.global_position)
+		var rand = RandomNumberGenerator.new().randf()
+		current_segment.look_at(global_position)
 		current_segment.rotate(PI / 2)
+		
+		if attach_point:
+			current_segment.add_collision_exception_with(attach_point.get_parent())
 	
 	# create and position joints, connect segments
 	var segment_height = (segments[0].get_node("Sprite") as Sprite2D).texture.get_height()
-	for i in range(vine_num + 1):
+	for i in range(vine_num + (1 if attach_point else 0)):
 		var current_joint := PinJoint2D.new()
 		current_joint.name = "Joint{}".format([i + 1], "{}")
 		add_child(current_joint)

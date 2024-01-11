@@ -10,13 +10,10 @@ size = Vector2(2, 8)
 size = Vector2(2, 8)
 
 [node name="VineSegment" type="RigidBody2D"]
-collision_layer = 0
-collision_mask = 10
+collision_layer = 8
+collision_mask = 2
 mass = 0.5
 script = ExtResource("1_uvrms")
-
-[node name="Sprite" type="Sprite2D" parent="."]
-texture = ExtResource("1_h3138")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
@@ -26,5 +23,8 @@ shape = SubResource("RectangleShape2D_vdofm")
 
 [node name="SegmentShape" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_j85rw")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_h3138")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

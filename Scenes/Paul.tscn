@@ -40,10 +40,6 @@ zoom = Vector2(3.45, 3.45)
 [node name="PlantMass" parent="." instance=ExtResource("5_hmo78")]
 position = Vector2(202, -93)
 rotation = -0.440095
-collision_layer = 8
-collision_mask = 3
 
 [node name="PlantMass2" parent="." instance=ExtResource("5_hmo78")]
-position = Vector2(57, -67)
-rotation = 0.155464
-collision_mask = 3
+position = Vector2(79, -57)
