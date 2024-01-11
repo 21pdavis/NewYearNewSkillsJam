@@ -6,6 +6,9 @@ var vine_segment := preload("res://Scenes/Presets/vine_segment.tscn")
 var segments: Array[RigidBody2D] = []
 var joints: Array[PinJoint2D] = []
 
+func _ready():
+	add_to_group("vine")
+
 func _process(_delta):
 	queue_redraw()
 

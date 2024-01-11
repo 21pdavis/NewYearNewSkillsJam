@@ -18,6 +18,7 @@ func _process(delta):
 		var mouse_pos := get_global_mouse_position()
 		projectile_instance.global_position = global_position + (sprite.texture.get_width() as float / 1.5) * (mouse_pos - global_position).normalized()
 		projectile_instance.look_at(mouse_pos)
+		projectile_instance.rotate(PI / 2)
 		
 func _physics_process(delta):
 	# Add the gravity.
