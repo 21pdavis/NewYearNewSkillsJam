@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://b2frtex17jemf"]
+
+[ext_resource type="Script" path="res://Scripts/test_projectile.gd" id="1_v0xdf"]
+[ext_resource type="Texture2D" uid="uid://d0ib0s1sqlijb" path="res://Sprites/TestProjectile.png" id="1_xqafr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lgwmx"]
+size = Vector2(2, 16)
+
+[node name="TestProjectile" type="Area2D"]
+script = ExtResource("1_v0xdf")
+speed = 1000.0
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_xqafr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_lgwmx")
