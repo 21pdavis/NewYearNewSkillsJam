@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://c8mbw5if4i6s3"]
 
-[ext_resource type="PackedScene" uid="uid://cr8xo4su6snp" path="res://Scenes/Player.tscn" id="1_v5df0"]
+[ext_resource type="PackedScene" path="res://Scenes/Player.tscn" id="1_v5df0"]
 [ext_resource type="Texture2D" uid="uid://br0acb1elel5e" path="res://Tiles/SpaceShip_Floor.png" id="3_f8mdn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rwa60"]
