@@ -5,19 +5,22 @@ var vine_segment := preload("res://Scenes/Presets/vine_segment.tscn")
 @onready var anchor: StaticBody2D = $Anchor
 var segments: Array[RigidBody2D] = []
 var joints: Array[PinJoint2D] = []
+var segment_ups: Array[Vector2] = []
+var segments_connected_to_root: Array[bool] = []
 var severed_joint_indexes: Array[int] = []
+var disabled_projectiles: Array[Area2D] = []
 
 func _ready():
 	add_to_group("vine")
 
 func _process(_delta):
-	queue_redraw()
-
-func generate_vine(vine_num: int, attach_point: Node2D = null):
-	var spawn_direction := (
-		(attach_point.global_position - global_position).normalized() if attach_point
-		else transform.y
-	)
+	var i = 0
+	for segment in segments:
+		segment_ups[i] = -segment.transform.y
+		i += 1
+	
+func generate_vine(vine_num: int, attached: bool, attach_point: Node2D):
+	var spawn_direction := (attach_point.global_position - global_position).normalized()
 	
 	# create and position vines
 	# TODO: off by a pixel here, should add 1 in some places
@@ -27,6 +30,8 @@ func generate_vine(vine_num: int, attach_point: Node2D = null):
 		current_segment.name = "Segment{}".format([i + 1], "{}")
 		add_child(current_segment)
 		segments.append(current_segment)
+		segment_ups.append(-current_segment.transform.y)
+		segments_connected_to_root.append(true)
 		
 		# position and rotate segment
 		var segment_sprite := current_segment.get_node("Sprite") as Sprite2D
@@ -37,7 +42,7 @@ func generate_vine(vine_num: int, attach_point: Node2D = null):
 		current_segment.look_at(global_position)
 		current_segment.rotate(PI / 2)
 		
-		if attach_point:
+		if attach_point and attach_point is RigidBody2D:
 			current_segment.add_collision_exception_with(attach_point.get_parent())
 	
 	# create and position joints, connect segments
@@ -55,7 +60,7 @@ func generate_vine(vine_num: int, attach_point: Node2D = null):
 			current_joint.node_a = anchor.get_path()
 			current_joint.node_b = segments[0].get_path()
 		# last segment to attach_point connection
-		elif i == vine_num:
+		elif i == vine_num and attached:
 			var held_body := attach_point.get_parent() as RigidBody2D
 			
 			current_joint.node_a = segments[-1].get_path()
@@ -66,7 +71,7 @@ func generate_vine(vine_num: int, attach_point: Node2D = null):
 			
 			current_joint.node_b = held_body.get_path()
 		# segment-to-segment connections
-		else:
+		elif i < vine_num:
 			current_joint.node_a = segments[i].get_path()
 			current_joint.node_b = segments[i - 1].get_path()
 
@@ -74,3 +79,5 @@ func sever_segment(idx: int):
 	if not idx in severed_joint_indexes:
 		joints[idx].queue_free()
 		severed_joint_indexes.append(idx)
+		for i in range(idx, segments.size()):
+			segments_connected_to_root[i] = false
