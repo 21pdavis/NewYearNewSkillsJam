@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://bhcyrg0em5dfa"]
 
 [ext_resource type="Script" path="res://Scripts/test_player.gd" id="1_2elwv"]
-[ext_resource type="Texture2D" uid="uid://cfy01nwt63k4i" path="res://Sprites/Characters/PlantFella1.png" id="2_yqc5s"]
+[ext_resource type="Texture2D" uid="uid://cpctkoqkfkij8" path="res://Sprites/Entities/PlayerCharacter/Player_Revision3.png" id="2_htc15"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2jpo2"]
-size = Vector2(14, 13)
+size = Vector2(13, 15)
 
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(140, -8)
@@ -12,8 +12,8 @@ collision_mask = 7
 script = ExtResource("1_2elwv")
 
 [node name="Sprite" type="Sprite2D" parent="."]
-texture = ExtResource("2_yqc5s")
+texture = ExtResource("2_htc15")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1.5)
+position = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_2jpo2")
