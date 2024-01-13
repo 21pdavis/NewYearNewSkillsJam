@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://cno0tddk0ioar"]
+
+[ext_resource type="Texture2D" uid="uid://b6hsq4hmwe66r" path="res://Sprites/Background/Back Layer(1st).png" id="1_8taa3"]
+[ext_resource type="Texture2D" uid="uid://ckr8gkdsps1ti" path="res://Sprites/Background/Foliage(2nd).png" id="2_a5t0f"]
+[ext_resource type="Texture2D" uid="uid://dgvn1rlestqgj" path="res://Sprites/Background/Trees(3rd).png" id="3_af762"]
+[ext_resource type="Texture2D" uid="uid://cvpbiulnomx8a" path="res://Sprites/Background/Front Layer(4th).png" id="4_vmgp5"]
+
+[node name="ParalaxBackground" type="Node2D"]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0, 0)
+
+[node name="Sky" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+texture = ExtResource("1_8taa3")
+centered = false
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.25, 0)
+motion_mirroring = Vector2(200, 0)
+
+[node name="BackFoliage" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
+texture = ExtResource("2_a5t0f")
+centered = false
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.7, 0)
+motion_mirroring = Vector2(200, 0)
+
+[node name="Trees" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3"]
+texture = ExtResource("3_af762")
+centered = false
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(1, 0)
+motion_mirroring = Vector2(200, 0)
+
+[node name="Bushes" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4"]
+texture = ExtResource("4_vmgp5")
+centered = false

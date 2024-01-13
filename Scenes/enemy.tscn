@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://difemu0y1irm8"]
+
+[ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_3llbc"]
+[ext_resource type="Texture2D" uid="uid://h8omjkqswhgk" path="res://Sprites/Entities/Enemies/Flytrap/FlytrapRev3.png" id="2_s2fc3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lv7cr"]
+size = Vector2(10, 14)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w8hmi"]
+radius = 70.0
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_layer = 32
+collision_mask = 6
+script = ExtResource("1_3llbc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 1)
+shape = SubResource("RectangleShape2D_lv7cr")
+
+[node name="Marker2D" type="Marker2D" parent="CollisionShape2D"]
+position = Vector2(-7, -1)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_s2fc3")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(-7, 1)
+target_position = Vector2(0, 8)
+collision_mask = 2
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+autostart = true
+
+[node name="AgroRadius" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AgroRadius"]
+shape = SubResource("CircleShape2D_w8hmi")
+
+[connection signal="body_entered" from="AgroRadius" to="." method="_on_agro_radius_body_entered"]

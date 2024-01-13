@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://difemu0y1irm8"]
+
+[ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_3llbc"]
+[ext_resource type="Texture2D" uid="uid://h8omjkqswhgk" path="res://Sprites/Entities/Enemies/Flytrap/FlytrapRev3.png" id="2_s2fc3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lv7cr"]
+size = Vector2(10, 14)
+
+[sub_resource type="GDScript" id="GDScript_n7fph"]
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_3llbc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 1)
+shape = SubResource("RectangleShape2D_lv7cr")
+script = SubResource("GDScript_n7fph")
+
+[node name="Marker2D" type="Marker2D" parent="CollisionShape2D"]
+position = Vector2(-7, -1)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_s2fc3")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(-7, 1)
+target_position = Vector2(0, 8)
