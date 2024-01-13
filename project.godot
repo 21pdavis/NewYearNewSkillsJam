@@ -17,6 +17,10 @@ config/icon="res://Sprites/icon.svg"
 
 [display]
 
+window/size/viewport_width=200
+window/size/viewport_height=113
+window/size/window_width_override=1200
+window/size/window_height_override=675
 window/stretch/mode="canvas_items"
 
 [input]
@@ -75,6 +79,15 @@ ui_right={
 , Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":0,"axis_value":1.0,"script":null)
 ]
 }
+
+[layer_names]
+
+2d_physics/layer_1="player"
+2d_physics/layer_2="walls"
+2d_physics/layer_3="environment_object"
+2d_physics/layer_4="vines"
+2d_physics/layer_5="projectiles"
+2d_physics/layer_6="enemies"
 
 [rendering]
 
