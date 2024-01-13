@@ -11,6 +11,7 @@ var projectile := preload("res://Scenes/Presets/test_projectile.tscn")
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var climbing := false
+var vine_being_climbed = null
 
 func _process(delta):
 	if Input.is_action_just_pressed("fire"):
@@ -27,11 +28,12 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("ui_accept") and (is_on_floor() or climbing):
 		if climbing:
 			climbing = false
+			vine_being_climbed.currently_being_climbed = false
+			vine_being_climbed = null
 			reparent(get_tree().current_scene)
 		velocity.y = JUMP_VELOCITY
 
 	var vertical_direction = Input.get_axis("climb_down", "climb_up")
-	
 	var vine_bodies := climb_area.get_overlapping_bodies()
 	vine_bodies.sort_custom(
 		func sort_by_distance_to_player(pos1: Node2D, pos2: Node2D):
@@ -48,12 +50,16 @@ func _physics_process(delta):
 		# stick player onto closest vine segment
 		if vine.segments_connected_to_root[segment_index]:
 			climbing = true
+			vine_being_climbed = vine
+			vine.currently_being_climbed = true
 			reparent(closest_vine_segment)
 			velocity = SPEED * delta * vertical_direction * vine.segment_ups[segment_index]
 	elif not vertical_direction and climbing:
 		velocity = Vector2.ZERO
-	elif not vine_bodies:
+	elif climbing and (is_on_floor() or not vine_bodies):
 		climbing = false
+		vine_being_climbed.currently_being_climbed = false
+		vine_being_climbed = null
 		reparent(get_tree().current_scene)
 	
 	if climbing:

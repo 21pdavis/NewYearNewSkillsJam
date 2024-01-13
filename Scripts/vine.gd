@@ -10,6 +10,8 @@ var segments_connected_to_root: Array[bool] = []
 var severed_joint_indexes: Array[int] = []
 var disabled_projectiles: Array[Area2D] = []
 
+var currently_being_climbed: bool = false
+
 func _ready():
 	add_to_group("vine")
 
@@ -36,13 +38,13 @@ func generate_vine(vine_num: int, attached: bool, attach_point: Node2D):
 		# position and rotate segment
 		var segment_sprite := current_segment.get_node("Sprite") as Sprite2D
 		var sprite_height := segment_sprite.texture.get_height()
+		
 		# 1/2 --> 3/2 --> etc. (pivot at center of segment)
 		current_segment.position = (i + 0.5) * sprite_height * spawn_direction
-		var rand = RandomNumberGenerator.new().randf()
 		current_segment.look_at(global_position)
 		current_segment.rotate(PI / 2)
 		
-		if attach_point and attach_point is RigidBody2D:
+		if attach_point and attach_point.get_parent() is RigidBody2D:
 			current_segment.add_collision_exception_with(attach_point.get_parent())
 	
 	# create and position joints, connect segments
@@ -76,7 +78,7 @@ func generate_vine(vine_num: int, attached: bool, attach_point: Node2D):
 			current_joint.node_b = segments[i - 1].get_path()
 
 func sever_segment(idx: int):
-	if not idx in severed_joint_indexes:
+	if idx not in severed_joint_indexes and not currently_being_climbed:
 		joints[idx].queue_free()
 		severed_joint_indexes.append(idx)
 		for i in range(idx, segments.size()):

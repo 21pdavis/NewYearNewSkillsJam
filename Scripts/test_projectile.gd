@@ -26,8 +26,9 @@ func _physics_process(delta):
 		var intersected_object := result.collider as Node2D
 		if "vine_segment" in intersected_object.get_groups():
 			var vine = intersected_object.get_parent()
-			var segment_index = vine.segments.find(intersected_object)
-			vine.sever_segment(segment_index)
+			if not vine.currently_being_climbed:
+				var segment_index = vine.segments.find(intersected_object)
+				vine.sever_segment(segment_index)
 			
 	prev_position = global_position
 
