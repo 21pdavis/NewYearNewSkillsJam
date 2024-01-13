@@ -30,14 +30,25 @@ func _process(_delta):
 			#if curr_distance > initial_segment_distances[i]:
 				#segments[i].position = compare_point.position + initial_segment_distances[i] * (-segment_ups[i - 1])
 		
-func generate_vine(vine_num: int, attached: bool, attach_point: Node2D):
+func generate_vine(attached: bool, attach_point: Node2D):
 	var spawn_direction := (attach_point.global_position - global_position).normalized()
+	var first_segment := vine_segment.instantiate() as RigidBody2D
+	
+	# assumes same sprite for each segment
+	var segment_sprite := first_segment.get_node("Sprite") as Sprite2D
+	var sprite_height := segment_sprite.texture.get_height()
+	
+	var vine_num := (to_local(attach_point.global_position).length() / sprite_height) as int
+	print(vine_num)
 	
 	# create and position vines
 	# TODO: off by a pixel here, should add 1 in some places
 	for i in range(vine_num):
 		# instantiate new vine segment
-		var current_segment := vine_segment.instantiate() as RigidBody2D
+		var current_segment := vine_segment.instantiate() as RigidBody2D if not first_segment else first_segment
+		if first_segment:
+			first_segment = null
+		
 		current_segment.name = "Segment{}".format([i + 1], "{}")
 		current_segment.add_to_group("vine_segment")
 		add_child(current_segment)
@@ -51,9 +62,6 @@ func generate_vine(vine_num: int, attached: bool, attach_point: Node2D):
 			initial_segment_distances.append((current_segment.position - segments[i - 1].position).length())
 		
 		# position and rotate segment
-		var segment_sprite := current_segment.get_node("Sprite") as Sprite2D
-		var sprite_height := segment_sprite.texture.get_height()
-		
 		# 1/2 --> 3/2 --> etc. (pivot at center of segment)
 		current_segment.position = (i + 0.5) * sprite_height * spawn_direction
 		current_segment.look_at(global_position)
@@ -84,7 +92,7 @@ func generate_vine(vine_num: int, attached: bool, attach_point: Node2D):
 			
 			# shift body up to end of vine connection
 			var body_sprite := held_body.get_node("Sprite") as Sprite2D
-			held_body.global_position = current_joint.global_position + (body_sprite.texture.get_height() / 2) * spawn_direction
+			held_body.global_position = current_joint.global_position + (body_sprite.texture.get_height() / 2.0) * spawn_direction
 			
 			current_joint.node_b = held_body.get_path()
 		# segment-to-segment connections

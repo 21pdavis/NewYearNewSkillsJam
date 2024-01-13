@@ -13,5 +13,5 @@ func _physics_process(delta):
 		vine_instance = vine_ref.instantiate() as Node2D
 		get_tree().current_scene.add_child(vine_instance)
 		vine_instance.global_position = intersection_point
-		vine_instance.generate_vine(10, attached, self)
+		vine_instance.generate_vine(attached, self)
 		vine_spawned = true;
