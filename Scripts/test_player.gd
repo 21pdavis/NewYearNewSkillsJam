@@ -73,7 +73,7 @@ func _physics_process(delta):
 		velocity.y += gravity * delta
 	
 	# Get the input horizontal_direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
+	# As good practice, you should replace UI actions with custom gameplay actions.a
 	var horizontal_direction = Input.get_axis("move_left", "move_right")
 	if horizontal_direction:
 		if not climbing:

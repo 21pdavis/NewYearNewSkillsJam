@@ -6,6 +6,7 @@ var vine_segment := preload("res://Scenes/Presets/vine_segment.tscn")
 var segments: Array[RigidBody2D] = []
 var joints: Array[PinJoint2D] = []
 var segment_ups: Array[Vector2] = []
+var initial_segment_distances: Array[float] = []
 var segments_connected_to_root: Array[bool] = []
 var severed_joint_indexes: Array[int] = []
 var disabled_projectiles: Array[Area2D] = []
@@ -16,11 +17,19 @@ func _ready():
 	add_to_group("vine")
 
 func _process(_delta):
-	var i = 0
-	for segment in segments:
-		segment_ups[i] = -segment.transform.y
-		i += 1
-	
+	# update the relative global-space up vectors for each segment (for climbing)
+	for i in range(segments.size()):
+		segment_ups[i] = -segments[i].transform.y
+		
+	# TODO, may not get around to this
+	# de-stretch vines to prevent joints from pulling apart
+	#if segments:
+		#for i in range(segments.size()):
+			#var compare_point := (segments[i - 1] if i > 0 else self) as Node2D
+			#var curr_distance = (segments[i].position - compare_point.position).length()
+			#if curr_distance > initial_segment_distances[i]:
+				#segments[i].position = compare_point.position + initial_segment_distances[i] * (-segment_ups[i - 1])
+		
 func generate_vine(vine_num: int, attached: bool, attach_point: Node2D):
 	var spawn_direction := (attach_point.global_position - global_position).normalized()
 	
@@ -30,10 +39,16 @@ func generate_vine(vine_num: int, attached: bool, attach_point: Node2D):
 		# instantiate new vine segment
 		var current_segment := vine_segment.instantiate() as RigidBody2D
 		current_segment.name = "Segment{}".format([i + 1], "{}")
+		current_segment.add_to_group("vine_segment")
 		add_child(current_segment)
 		segments.append(current_segment)
 		segment_ups.append(-current_segment.transform.y)
 		segments_connected_to_root.append(true)
+		
+		if i > 0:
+			initial_segment_distances.append(current_segment.position.length())
+		else:
+			initial_segment_distances.append((current_segment.position - segments[i - 1].position).length())
 		
 		# position and rotate segment
 		var segment_sprite := current_segment.get_node("Sprite") as Sprite2D

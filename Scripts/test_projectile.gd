@@ -6,9 +6,6 @@ extends Area2D
 @onready var sprite_height := sprite.texture.get_height() as float
 @onready var prev_position := global_position
 
-func _ready():
-	add_to_group("vine_slicer")
-
 # a reference for a good method for drawing (do everything global, then convert to local)
 #func _draw():
 	#var ray_start = to_local(global_position + (sprite_height / 2) * transform.y)
@@ -35,3 +32,9 @@ func _physics_process(delta):
 func _process(delta):
 	position += speed * delta * (-transform.y)
 	queue_redraw()
+
+func _on_body_entered(body):
+	if "vine_segment" in body.get_groups():
+		var vine = body.get_parent()
+		var segment_index = vine.segments.find(body)
+		vine.sever_segment(segment_index)
