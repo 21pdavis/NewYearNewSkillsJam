@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c8mbw5if4i6s3"]
+[gd_scene load_steps=9 format=3 uid="uid://cdb0qj3p5l53h"]
 
 [ext_resource type="PackedScene" uid="uid://cr8xo4su6snp" path="res://Scenes/Player.tscn" id="1_v5df0"]
 [ext_resource type="PackedScene" uid="uid://cno0tddk0ioar" path="res://Scenes/paralax_background.tscn" id="3_07lv8"]
