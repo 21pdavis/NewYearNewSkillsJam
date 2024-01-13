@@ -4,6 +4,8 @@ extends CharacterBody2D
 const SPEED = 6000
 const JUMP_VELOCITY = -400.0
 
+@export var swing_strength: float
+
 var projectile := preload("res://Scenes/Presets/test_projectile.tscn")
 @onready var sprite := $Sprite as Sprite2D
 @onready var climb_area := $ClimbArea as Area2D
@@ -73,8 +75,12 @@ func _physics_process(delta):
 	# Get the input horizontal_direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var horizontal_direction = Input.get_axis("move_left", "move_right")
-	if horizontal_direction and not climbing:
-		velocity.x = horizontal_direction * SPEED * delta
+	if horizontal_direction:
+		if not climbing:
+			velocity.x = horizontal_direction * SPEED * delta
+		else:
+			var vine_segment := get_parent() as RigidBody2D
+			vine_segment.apply_impulse(swing_strength * horizontal_direction * delta * global_transform.x)
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 	

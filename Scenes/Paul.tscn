@@ -66,6 +66,7 @@ rotation = -0.349245
 
 [node name="TestPlayer" parent="." instance=ExtResource("3_4qph6")]
 position = Vector2(359, -56)
+swing_strength = 1000.0
 
 [node name="Camera2D" type="Camera2D" parent="TestPlayer"]
 position = Vector2(0, -25.62)
