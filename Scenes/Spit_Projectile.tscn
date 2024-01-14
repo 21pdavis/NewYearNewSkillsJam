@@ -10,6 +10,7 @@ size = Vector2(4, 4)
 collision_layer = 16
 collision_mask = 15
 script = ExtResource("1_4byes")
+speed = 100.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_0dgk8")

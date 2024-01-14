@@ -9,20 +9,18 @@ const projectile_Path = preload("res://Scenes/Spit_Projectile.tscn")
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-var health
+@export var health: int
 var myMarker : Marker2D
 
 #var projectile_Path = preload("res://Scenes/projectile.tscn")
-var Main
 var spitVec
-var playerColl
 var shootTimer : Timer
 @onready var player_in = false
 @onready var state_machine = $AnimationTree.get("parameters/playback")
 @onready var spit_done = true
+@onready var player := get_tree().current_scene.get_node("Player")
 
 func _ready():
-	health = 100
 	speed = 0
 	myMarker = $CollisionShape2D/Marker2D
 	direction_left = true
@@ -30,9 +28,6 @@ func _ready():
 	
 	#player_in = true
 	add_to_group("Enemy")
-	var Main = get_tree().current_scene
-	var playerColl = Main.get_node("Player")
-
 
 
 func _physics_process(delta):
@@ -52,9 +47,7 @@ func _physics_process(delta):
 		speed = 0
 		if spit_done:
 			state_machine.travel("IDLE")
-		var Main = get_tree().current_scene
-		var playerColl = Main.get_node("Player")
-		if (playerColl.global_position-$CollisionShape2D/Marker2D.global_position).x <= 0:
+		if player and (player.global_position-$CollisionShape2D/Marker2D.global_position).x <= 0:
 			if direction_left == false:
 				if shootTimer.is_stopped():
 					spit()
@@ -93,9 +86,7 @@ func flip():
 func spit():
 	state_machine.travel("SPIT")
 	var projectile = projectile_Path.instantiate()
-	var Main = get_tree().current_scene
-	var playerColl = Main.get_node("Player")
-	var spitVec = playerColl.global_position-$CollisionShape2D/Marker2D.global_position
+	var spitVec = player.global_position-$CollisionShape2D/Marker2D.global_position
 	projectile.direction(spitVec)
 	get_parent().add_child(projectile)
 	projectile.position = myMarker.global_position

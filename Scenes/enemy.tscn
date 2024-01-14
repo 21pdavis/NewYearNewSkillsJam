@@ -153,6 +153,7 @@ transitions = ["DIE", "End", SubResource("AnimationNodeStateMachineTransition_3o
 collision_layer = 32
 collision_mask = 6
 script = ExtResource("1_3llbc")
+health = 60
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, 1)
@@ -173,6 +174,7 @@ target_position = Vector2(0, 8)
 collision_mask = 2
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
 one_shot = true
 autostart = true
 

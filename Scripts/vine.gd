@@ -47,7 +47,8 @@ func generate_vine(attached: bool, attach_point: Node2D):
 	var segment_sprite := first_segment.get_node("Sprite") as Sprite2D
 	var sprite_height := segment_sprite.texture.get_height()
 	
-	var vine_num := (to_local(attach_point.global_position).length() / sprite_height) as int
+	var vine_num = min((to_local(attach_point.global_position).length() / sprite_height) as int, 13)
+	print("generated ", vine_num, " vines")
 	# create and position vines
 	# TODO: off by a pixel here, should add 1 in some places
 	for i in range(vine_num):

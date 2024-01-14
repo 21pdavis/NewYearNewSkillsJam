@@ -6,7 +6,7 @@ extends Area2D
 #@onready var playerSprite = Main_instance.get_node("Player/CollisionShape2D2")
 #@onready var enemySprite = Main_instance.get_node("Enemy/CollisionShape2D")
 #var projectile_velocity = enemySprite.global_position-playerSprite.Marker2D.global_position
-@onready var speed = 200
+@export var speed := 200.0
 var projectile_velocity
 
 func direction(direct:Vector2):
@@ -24,7 +24,7 @@ func _on_area_entered(area):
 	destroy()
 
 
-func _on_body_entered(body: PhysicsBody2D):
+func _on_body_entered(body):
 	#print(body.name)
 	if "Player" in body.get_groups():
 		body.take_damage(1)
