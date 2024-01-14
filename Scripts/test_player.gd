@@ -35,6 +35,7 @@ func _physics_process(delta):
 			climbing = false
 			vine_being_climbed.currently_being_climbed = false
 			vine_being_climbed = null
+			global_rotation_degrees = 0
 			reparent(get_tree().current_scene)
 		velocity.y = JUMP_VELOCITY
 
@@ -65,6 +66,7 @@ func _physics_process(delta):
 		climbing = false
 		vine_being_climbed.currently_being_climbed = false
 		vine_being_climbed = null
+		global_rotation_degrees = 0
 		reparent(get_tree().current_scene)
 	
 	if climbing:
