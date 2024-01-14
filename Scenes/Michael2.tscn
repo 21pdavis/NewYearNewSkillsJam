@@ -1,21 +1,21 @@
-[gd_scene load_steps=10 format=3 uid="uid://c8mbw5if4i6s3"]
+[gd_scene load_steps=10 format=3 uid="uid://fr840uqbberh"]
 
-[ext_resource type="PackedScene" uid="uid://cr8xo4su6snp" path="res://Scenes/Player.tscn" id="1_v5df0"]
-[ext_resource type="PackedScene" uid="uid://cno0tddk0ioar" path="res://Scenes/paralax_background.tscn" id="3_07lv8"]
-[ext_resource type="Texture2D" uid="uid://c84fdo1xhjbvv" path="res://Tiles/Full_TileSet.png" id="3_8onfu"]
-[ext_resource type="Texture2D" uid="uid://br0acb1elel5e" path="res://Tiles/SpaceShip_Floor.png" id="3_f8mdn"]
-[ext_resource type="AudioStream" uid="uid://h8fjqtbmnoa4" path="res://Sound/NewSkills(MainBeat)v2.wav" id="5_5gb42"]
-[ext_resource type="PackedScene" uid="uid://difemu0y1irm8" path="res://Scenes/enemy.tscn" id="5_ujv77"]
+[ext_resource type="Texture2D" uid="uid://br0acb1elel5e" path="res://Tiles/SpaceShip_Floor.png" id="1_cb21b"]
+[ext_resource type="Texture2D" uid="uid://c84fdo1xhjbvv" path="res://Tiles/Full_TileSet.png" id="2_b7tcb"]
+[ext_resource type="PackedScene" uid="uid://cno0tddk0ioar" path="res://Scenes/paralax_background.tscn" id="3_l5xya"]
+[ext_resource type="PackedScene" uid="uid://cr8xo4su6snp" path="res://Scenes/Player.tscn" id="4_rgfn5"]
+[ext_resource type="AudioStream" uid="uid://h8fjqtbmnoa4" path="res://Sound/NewSkills(MainBeat)v2.wav" id="5_rl8rq"]
+[ext_resource type="PackedScene" uid="uid://difemu0y1irm8" path="res://Scenes/enemy.tscn" id="6_1g5hl"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pjid2"]
-texture = ExtResource("3_f8mdn")
+texture = ExtResource("1_cb21b")
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2ae47"]
-texture = ExtResource("3_8onfu")
+texture = ExtResource("2_b7tcb")
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
@@ -144,16 +144,16 @@ layer_0/tile_data = PackedInt32Array(65530, 196609, 0, 5, 327681, 0, 393210, 655
 layer_1/name = "Platforms"
 layer_1/tile_data = PackedInt32Array(262145, 131073, 3, 262147, 196609, 3, 262148, 131073, 4, 262149, 196609, 4)
 
-[node name="ParalaxBackground" parent="." instance=ExtResource("3_07lv8")]
+[node name="ParalaxBackground" parent="." instance=ExtResource("3_l5xya")]
 
-[node name="Player" parent="." instance=ExtResource("1_v5df0")]
+[node name="Player" parent="." instance=ExtResource("4_rgfn5")]
 position = Vector2(0, 57)
 
 [node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="Player"]
 position = Vector2(0, -57)
-stream = ExtResource("5_5gb42")
+stream = ExtResource("5_rl8rq")
 volume_db = -14.576
 autoplay = true
 
-[node name="Enemy" parent="." instance=ExtResource("5_ujv77")]
+[node name="Enemy" parent="." instance=ExtResource("6_1g5hl")]
 position = Vector2(73, 57)
