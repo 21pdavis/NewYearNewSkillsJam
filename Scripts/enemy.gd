@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-var speed = -30.0
+var speed
 const JUMP_VELOCITY = -400.0
 var facing_left
 var direction_left : bool
@@ -17,13 +17,21 @@ var Main
 var spitVec
 var playerColl
 var shootTimer : Timer
+@onready var player_in = false
+@onready var state_machine = $AnimationTree.get("parameters/playback")
+@onready var spit_done = true
 
 func _ready():
 	health = 100
+	speed = 0
 	myMarker = $CollisionShape2D/Marker2D
 	direction_left = true
 	shootTimer = $Timer
+	
+	#player_in = true
 	add_to_group("Enemy")
+	var Main = get_tree().current_scene
+	var playerColl = Main.get_node("Player")
 
 
 
@@ -34,31 +42,42 @@ func _physics_process(delta):
 		
 	velocity.x = speed
 	
-	#print($RayCast2D.is_colliding())
-	
-	if !$RayCast2D.is_colliding() && is_on_floor():
-		flip()
-
-	# Handle jump.
-	#if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		#velocity.y = JUMP_VELOCITY
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	#var direction = Input.get_axis("ui_left", "ui_right")
-	#if direction:
-		#velocity.x = direction * SPEED
-	#else:
-		#velocity.x = move_toward(velocity.x, 0, SPEED)
+	if player_in == false:
+		state_machine.travel("WALK")
+		if speed == 0:
+			speed = -30
+		if !$RayCast2D.is_colliding() && is_on_floor():
+			flip()
+	if player_in == true:
+		speed = 0
+		if spit_done:
+			state_machine.travel("IDLE")
+		var Main = get_tree().current_scene
+		var playerColl = Main.get_node("Player")
+		if (playerColl.global_position-$CollisionShape2D/Marker2D.global_position).x <= 0:
+			if direction_left == false:
+				if shootTimer.is_stopped():
+					spit()
+			else:
+				flip()
+				if shootTimer.is_stopped():
+					spit()
+		else:
+			if direction_left == true:
+				if shootTimer.is_stopped():	
+					spit()
+			else:
+				flip()
+				if shootTimer.is_stopped():
+					spit()
+		
+func _process(delta):
 	
 	if health <= 0:
 		die()
 	
-
+	#print(player_in)
 	move_and_slide()
-	
-	if Input.is_action_pressed("ui_select") and shootTimer.is_stopped():
-		spit()
 	
 func flip():
 	facing_left = !facing_left
@@ -70,10 +89,9 @@ func flip():
 	else:
 		speed = abs(speed) * -1
 		direction_left = false
-func agro():
-	pass
 		
 func spit():
+	state_machine.travel("SPIT")
 	var projectile = projectile_Path.instantiate()
 	var Main = get_tree().current_scene
 	var playerColl = Main.get_node("Player")
@@ -81,6 +99,7 @@ func spit():
 	projectile.direction(spitVec)
 	get_parent().add_child(projectile)
 	projectile.position = myMarker.global_position
+	state_machine.travel
 	shootTimer.start()
 	
 func take_damage(dmg:int):
@@ -88,8 +107,25 @@ func take_damage(dmg:int):
 	print(health)
 	
 func die():
-	queue_free()
+	speed = 0
+	state_machine.travel("DIE")
 
 
 func _on_agro_radius_body_entered(body):
-	pass # Replace with function body.
+	#print("entered agro")
+	player_in = true
+	#spit()
+	
+func _on_agro_radius_body_exited(body):
+	player_in = false
+
+func _on_animation_tree_animation_finished(anim_name):
+	if anim_name == "DIE":
+		queue_free()
+	if anim_name == "SPIT":
+		spit_done = true
+		
+
+func _on_animation_tree_animation_started(anim_name):
+	if anim_name == "SPIT":
+		spit_done = false
