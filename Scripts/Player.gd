@@ -119,13 +119,6 @@ func _physics_process(delta):
 			if is_on_floor():	
 				if isShooting == true:
 					state_machine.travel("SHOOT_IDLE")
-			else:
-				look_direction = 0
-		else:
-			velocity.x = move_toward(velocity.x, 0, SPEED)
-			if is_on_floor():	
-				if isShooting == true:
-					state_machine.travel("SHOOT_IDLE")
 				else:
 					state_machine.travel("IDLE")
 		
