@@ -16,6 +16,9 @@ var myMarker : Marker2D
 var myMarker2 : Marker2D
 var shootTimer : Timer
 var isShooting : bool
+@onready var isDead = false
+@onready var fullyDead = false
+@export var player_health: int
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -32,6 +35,7 @@ func _ready():
 	myMarker2 = $CollisionShape2D2/Marker2D2
 	shootTimer = $Timer
 	isShooting = false
+	add_to_group("Player")
 	
 
 func _physics_process(delta):
@@ -42,7 +46,7 @@ func _physics_process(delta):
 			state_machine.travel("FALL")
 			
 	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and (is_on_floor() or climbing):
+	if Input.is_action_just_pressed("ui_accept") and (is_on_floor() or climbing) and not isDead:
 		if climbing:
 			climbing = false
 			vine_being_climbed.currently_being_climbed = false
@@ -94,40 +98,64 @@ func _physics_process(delta):
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	var horizontal_direction = Input.get_axis("ui_left", "ui_right")
-	if horizontal_direction:
-		if horizontal_direction > 0:
-			look_direction = 1
-		else:
-			look_direction = 0
-				
-		if not climbing:
-			velocity.x = horizontal_direction * SPEED * delta
-			if is_on_floor():
-				state_machine.travel("WALK")
-		else:
-			var vine_segment := get_parent() as RigidBody2D
-			if vine_segment.get_parent().swingable:
-				vine_segment.apply_impulse(swing_strength * horizontal_direction * delta * global_transform.x)
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		if is_on_floor():	
-			if isShooting == true:
-				state_machine.travel("SHOOT_IDLE")
+	if not isDead:
+		var horizontal_direction = Input.get_axis("ui_left", "ui_right")
+		if horizontal_direction:
+			if horizontal_direction > 0:
+				look_direction = 1
 			else:
-				state_machine.travel("IDLE")
+				look_direction = 0
+					
+			if not climbing:
+				velocity.x = horizontal_direction * SPEED * delta
+				if is_on_floor():
+					state_machine.travel("WALK")
+			else:
+				var vine_segment := get_parent() as RigidBody2D
+				if vine_segment.get_parent().swingable:
+					vine_segment.apply_impulse(swing_strength * horizontal_direction * delta * global_transform.x)
+		else:
+			velocity.x = move_toward(velocity.x, 0, SPEED)
+			if is_on_floor():	
+				if isShooting == true:
+					state_machine.travel("SHOOT_IDLE")
+			else:
+				look_direction = 0
+		else:
+			velocity.x = move_toward(velocity.x, 0, SPEED)
+			if is_on_floor():	
+				if isShooting == true:
+					state_machine.travel("SHOOT_IDLE")
+				else:
+					state_machine.travel("IDLE")
 		
 	if look_direction == 1:
 		sprite.flip_h = false
 	else:
 		sprite.flip_h = true
 		
-	if Input.is_action_pressed("ui_select") and shootTimer.is_stopped():
+	if Input.is_action_pressed("ui_select") and shootTimer.is_stopped() and isDead == false:
 		shoot()
 	else:
 		isShooting = false
+	if fullyDead:
+		print("fulldead")
+		Engine.time_scale = 0
 
 	move_and_slide()
+#func _process(delta):
+	
+func take_damage(dmg:int):
+	print("OW")
+	player_health -= dmg
+	if player_health <= 0:
+		die()
+
+func die():
+	isDead = true
+	state_machine.travel("DIE")
+	if fullyDead:
+		state_machine.travel("End")
 
 func shoot():
 	var bullet = bulletPath.instantiate()
@@ -139,3 +167,7 @@ func shoot():
 	else:
 		bullet.position = myMarker2.global_position
 	shootTimer.start()
+
+func _on_animation_tree_animation_finished(anim_name):
+	if anim_name == "DIE":
+		fullyDead = true

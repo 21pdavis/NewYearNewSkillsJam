@@ -21,10 +21,14 @@ func destroy():
 
 
 func _on_area_entered(area):
+	#print(area.name)
 	destroy()
 
 
 func _on_body_entered(body):
+	#print(body.name)
+	if "Player" in body.get_groups():
+		body.take_damage(200)
 	destroy()
 
 

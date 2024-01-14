@@ -85,6 +85,17 @@ ui_right={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="player"
+2d_physics/layer_2="walls"
+2d_physics/layer_3="environment_object"
+2d_physics/layer_4="vines"
+2d_physics/layer_5="projectiles"
+2d_physics/layer_6="enemies"
+2d_physics/layer_7="agro_shapes"
+2d_physics/layer_8="player bullet range"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
