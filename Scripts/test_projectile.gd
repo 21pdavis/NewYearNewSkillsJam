@@ -7,10 +7,10 @@ extends Area2D
 @onready var prev_position := global_position
 
 # a reference for a good method for drawing (do everything global, then convert to local)
-#func _draw():
-	#var ray_start = to_local(global_position + (sprite_height / 2) * transform.y)
-	#var ray_end = to_local(prev_position + (sprite_height / 2) * transform.y)
-	#draw_line(ray_start, ray_end, Color.WEB_PURPLE, 1)
+func _draw():
+	var ray_start = to_local(global_position + (sprite_height / 2) * transform.y)
+	var ray_end = to_local(prev_position + (sprite_height / 2) * transform.y)
+	draw_line(ray_start, ray_end, Color.WEB_PURPLE, 1)
 	
 func _physics_process(delta):
 	var space_state = get_world_2d().direct_space_state
@@ -31,7 +31,7 @@ func _physics_process(delta):
 
 func _process(delta):
 	position += speed * delta * (-transform.y)
-	queue_redraw()
+	#queue_redraw()
 
 func _on_body_entered(body):
 	if "vine_segment" in body.get_groups():

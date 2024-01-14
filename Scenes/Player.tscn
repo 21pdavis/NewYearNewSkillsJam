@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://cr8xo4su6snp"]
+[gd_scene load_steps=35 format=3 uid="uid://cr8xo4su6snp"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_v7vmo"]
 [ext_resource type="Texture2D" uid="uid://dq14c276j0b5s" path="res://Sprites/Entities/PlayerCharacter/Character_Sprite_Sheet.png" id="2_r4mtp"]
@@ -235,6 +235,9 @@ states/WALK/node = SubResource("AnimationNodeAnimation_r81up")
 states/WALK/position = Vector2(656, 202)
 transitions = ["DIE", "End", SubResource("AnimationNodeStateMachineTransition_24l5q"), "IDLE", "WALK", SubResource("AnimationNodeStateMachineTransition_84l88"), "WALK", "IDLE", SubResource("AnimationNodeStateMachineTransition_aiirx"), "IDLE", "JUMP", SubResource("AnimationNodeStateMachineTransition_qd7fb"), "WALK", "JUMP", SubResource("AnimationNodeStateMachineTransition_7r2ig"), "WALK", "FALL", SubResource("AnimationNodeStateMachineTransition_2ic3d"), "Start", "IDLE", SubResource("AnimationNodeStateMachineTransition_xnacg"), "JUMP", "FALL", SubResource("AnimationNodeStateMachineTransition_8wx5f"), "FALL", "LAND", SubResource("AnimationNodeStateMachineTransition_peu5n"), "LAND", "IDLE", SubResource("AnimationNodeStateMachineTransition_fmrjl"), "LAND", "WALK", SubResource("AnimationNodeStateMachineTransition_x0jdc"), "IDLE", "SHOOT_IDLE", SubResource("AnimationNodeStateMachineTransition_jtjiy"), "SHOOT_IDLE", "IDLE", SubResource("AnimationNodeStateMachineTransition_hp76g")]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u3acb"]
+size = Vector2(7, 14)
+
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(0, -8)
 collision_mask = 7
@@ -288,3 +291,11 @@ one_shot = true
 autostart = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="ClimbArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClimbArea"]
+position = Vector2(-0.5, 1)
+shape = SubResource("RectangleShape2D_u3acb")
