@@ -1,11 +1,15 @@
-[gd_scene load_steps=25 format=3 uid="uid://ujyst1ngv010"]
+[gd_scene load_steps=29 format=3 uid="uid://ujyst1ngv010"]
 
 [ext_resource type="Texture2D" uid="uid://br0acb1elel5e" path="res://Tiles/SpaceShip_Floor.png" id="1_hyh6t"]
+[ext_resource type="Texture2D" uid="uid://ccanhvyqdh2ue" path="res://Sprites/RespawnButtonNormal.png" id="2_e2tn0"]
 [ext_resource type="Texture2D" uid="uid://c84fdo1xhjbvv" path="res://Tiles/Full_TileSet.png" id="2_ymf4k"]
+[ext_resource type="Texture2D" uid="uid://5tivj68smmkp" path="res://Sprites/RespawnButtonHover.png" id="3_27lhb"]
 [ext_resource type="PackedScene" uid="uid://cno0tddk0ioar" path="res://Scenes/paralax_background.tscn" id="3_q3bru"]
 [ext_resource type="PackedScene" uid="uid://cr8xo4su6snp" path="res://Scenes/Player.tscn" id="4_3w4vs"]
+[ext_resource type="Script" path="res://Scripts/respawn_button.gd" id="4_umpjb"]
 [ext_resource type="AudioStream" uid="uid://h8fjqtbmnoa4" path="res://Sound/NewSkills(MainBeat)v2.wav" id="5_br07i"]
 [ext_resource type="PackedScene" uid="uid://difemu0y1irm8" path="res://Scenes/enemy.tscn" id="5_gjs3k"]
+[ext_resource type="Script" path="res://Scripts/respawn_text.gd" id="5_vxpll"]
 [ext_resource type="PackedScene" uid="uid://bw7meflc6njla" path="res://Scenes/Presets/GUI/hearts_container.tscn" id="6_haib5"]
 [ext_resource type="Texture2D" uid="uid://qr3hi15nug21" path="res://Sprites/Commander_Sprite_Sheet.png" id="7_wpvq1"]
 [ext_resource type="PackedScene" uid="uid://ce1ukp83m18wd" path="res://Scenes/teleporter_pair.tscn" id="8_twwjm"]
@@ -147,6 +151,21 @@ size = Vector2(32, 81.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8e7de"]
 size = Vector2(0, 0)
 
+[sub_resource type="Animation" id="Animation_l1lsp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CommanderSpriteSheet:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_3a2t0"]
 resource_name = "idle"
 length = 0.6
@@ -163,21 +182,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [Vector2i(0, 0), Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(3, 0), Vector2i(4, 0), Vector2i(5, 0), Vector2i(6, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_l1lsp"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CommanderSpriteSheet:frame_coords")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Vector2i(0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mcspc"]
@@ -200,6 +204,43 @@ graph_offset = Vector2(-118, -8)
 
 [node name="World" type="Node2D"]
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HeartsContainer" parent="CanvasLayer" instance=ExtResource("6_haib5")]
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 52.0
+offset_bottom = 18.0
+
+[node name="RespawnButton" type="TextureButton" parent="CanvasLayer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -16.0
+offset_right = 40.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("2_e2tn0")
+texture_hover = ExtResource("3_27lhb")
+script = ExtResource("4_umpjb")
+
+[node name="RespawnText" type="RichTextLabel" parent="CanvasLayer/RespawnButton"]
+layout_mode = 0
+offset_left = 19.0
+offset_top = 9.0
+offset_right = 63.0
+offset_bottom = 100.0
+theme_override_fonts/normal_font = ExtResource("12_onf4u")
+bbcode_enabled = true
+text = "[center]RESPAWN[/center]"
+fit_content = true
+script = ExtResource("5_vxpll")
+
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_c4pe7")
 format = 2
@@ -210,17 +251,10 @@ layer_1/tile_data = PackedInt32Array(720934, 196609, 4, 1048604, 196609, 4, 1048
 
 [node name="ParalaxBackground" parent="." instance=ExtResource("3_q3bru")]
 
-[node name="Player" parent="." instance=ExtResource("4_3w4vs")]
+[node name="Player" parent="." node_paths=PackedStringArray("respawn_button") instance=ExtResource("4_3w4vs")]
 position = Vector2(-348, -237)
 JUMP_VELOCITY = -300.0
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="HeartsContainer" parent="CanvasLayer" instance=ExtResource("6_haib5")]
-offset_left = 2.0
-offset_top = 2.0
-offset_right = 52.0
-offset_bottom = 18.0
+respawn_button = NodePath("../CanvasLayer/RespawnButton")
 
 [node name="StartTeleporter" parent="." instance=ExtResource("8_twwjm")]
 position = Vector2(86, -225)
@@ -258,7 +292,7 @@ offset_bottom = 426.0
 scale = Vector2(0.75, 0.75)
 theme_override_fonts/normal_font = ExtResource("12_onf4u")
 theme_override_font_sizes/normal_font_size = 16
-text = "Left Click to Shoot"
+text = "Left Click/Hold to Shoot"
 fit_content = true
 
 [node name="EPrompt4" type="RichTextLabel" parent="StartTeleporter/Teleporter1" index="8"]
@@ -388,6 +422,7 @@ fit_content = true
 [node name="CommanderEndPoint" type="Node2D" parent="."]
 position = Vector2(-277, -232)
 
+[connection signal="pressed" from="CanvasLayer/RespawnButton" to="CanvasLayer/RespawnButton" method="_on_pressed"]
 [connection signal="health_changed" from="Player" to="CanvasLayer/HeartsContainer" method="_on_player_health_changed"]
 
 [editable path="StartTeleporter"]

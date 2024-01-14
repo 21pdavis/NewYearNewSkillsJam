@@ -21,6 +21,7 @@ var isShooting : bool
 @onready var stepSoundDone = true
 @onready var stepDone = true
 @export var player_health: int
+@export var respawn_button: TextureButton
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -173,13 +174,12 @@ func shoot():
 func _on_animation_tree_animation_finished(anim_name):
 	if anim_name == "DIE":
 		fullyDead = true
+		respawn_button.visible = true
 	if anim_name == "WALK":
 		stepDone = true
 		
 func _on_audio_stream_player_2d_finished():
 	stepSoundDone = true
-
-
 
 
 func _on_animation_player_animation_started(anim_name):
