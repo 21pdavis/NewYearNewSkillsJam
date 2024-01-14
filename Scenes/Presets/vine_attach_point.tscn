@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://hq5d3mmf1off"]
+
+[ext_resource type="Script" path="res://Scripts/vine_attach_point.gd" id="1_cbih1"]
+
+[node name="VineAttachPoint" type="RayCast2D"]
+target_position = Vector2(0, -1000)
+collision_mask = 2
+script = ExtResource("1_cbih1")

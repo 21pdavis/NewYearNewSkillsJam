@@ -7,6 +7,8 @@
 size = Vector2(2, 16)
 
 [node name="TestProjectile" type="Area2D"]
+collision_layer = 16
+collision_mask = 8
 script = ExtResource("1_v0xdf")
 speed = 1000.0
 
@@ -15,3 +17,5 @@ texture = ExtResource("1_xqafr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_lgwmx")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

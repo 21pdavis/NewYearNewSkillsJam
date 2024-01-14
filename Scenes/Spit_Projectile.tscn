@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://dsxc2bluhmdcx"]
+
+[ext_resource type="Script" path="res://Scripts/Spit_Projectile.gd" id="1_4byes"]
+[ext_resource type="Texture2D" uid="uid://cmhprjws77s8p" path="res://Sprites/Entities/Enemies/Flytrap/Flytrap_Projectile.png" id="2_0dgk8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ylve1"]
+size = Vector2(4, 4)
+
+[node name="Area2D" type="Area2D"]
+collision_layer = 16
+collision_mask = 15
+script = ExtResource("1_4byes")
+speed = 100.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_0dgk8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ylve1")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

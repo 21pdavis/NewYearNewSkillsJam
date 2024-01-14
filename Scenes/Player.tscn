@@ -1,7 +1,8 @@
-[gd_scene load_steps=30 format=3 uid="uid://cr8xo4su6snp"]
+[gd_scene load_steps=43 format=3 uid="uid://cr8xo4su6snp"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_v7vmo"]
 [ext_resource type="Texture2D" uid="uid://dq14c276j0b5s" path="res://Sprites/Entities/PlayerCharacter/Character_Sprite_Sheet.png" id="2_r4mtp"]
+[ext_resource type="AudioStream" uid="uid://ddks1kbojmsql" path="res://Sound/StepSoundv2.wav" id="3_fp1ed"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n0px4"]
 size = Vector2(7, 14)
@@ -119,6 +120,23 @@ tracks/1/keys = {
 "values": [Vector2i(0, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_2kepc"]
+resource_name = "SHOOT_IDLE"
+length = 0.4
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../PlayerRevision4:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2i(0, 4), Vector2i(1, 4)]
+}
+
 [sub_resource type="Animation" id="Animation_7qffl"]
 resource_name = "WALK"
 length = 0.375
@@ -145,6 +163,7 @@ _data = {
 "JUMP": SubResource("Animation_aw7rf"),
 "LAND": SubResource("Animation_u5clj"),
 "RESET": SubResource("Animation_llewi"),
+"SHOOT_IDLE": SubResource("Animation_2kepc"),
 "WALK": SubResource("Animation_7qffl")
 }
 
@@ -162,6 +181,9 @@ animation = &"JUMP"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3ehrl"]
 animation = &"LAND"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_npma6"]
+animation = &"SHOOT_IDLE"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_r81up"]
 animation = &"WALK"
@@ -192,30 +214,59 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_x0jdc"]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jtjiy"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hp76g"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3gkuo"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_x503s"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_j2f0v"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nvn1q"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2jb7r"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_o3hg7"]
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_gloq4"]
 states/DIE/node = SubResource("AnimationNodeAnimation_star0")
 states/DIE/position = Vector2(798, 114)
 states/FALL/node = SubResource("AnimationNodeAnimation_e2bg0")
-states/FALL/position = Vector2(442, 40)
+states/FALL/position = Vector2(356, 48)
 states/IDLE/node = SubResource("AnimationNodeAnimation_k77oc")
-states/IDLE/position = Vector2(442, 224)
+states/IDLE/position = Vector2(451, 193)
 states/JUMP/node = SubResource("AnimationNodeAnimation_nmv3g")
-states/JUMP/position = Vector2(301, 73)
+states/JUMP/position = Vector2(319, 100)
 states/LAND/node = SubResource("AnimationNodeAnimation_3ehrl")
-states/LAND/position = Vector2(560, 62)
+states/LAND/position = Vector2(534, 34)
+states/SHOOT_IDLE/node = SubResource("AnimationNodeAnimation_npma6")
+states/SHOOT_IDLE/position = Vector2(725, 34)
 states/Start/position = Vector2(168, 180)
 states/WALK/node = SubResource("AnimationNodeAnimation_r81up")
 states/WALK/position = Vector2(656, 202)
-transitions = ["DIE", "End", SubResource("AnimationNodeStateMachineTransition_24l5q"), "IDLE", "WALK", SubResource("AnimationNodeStateMachineTransition_84l88"), "WALK", "IDLE", SubResource("AnimationNodeStateMachineTransition_aiirx"), "IDLE", "JUMP", SubResource("AnimationNodeStateMachineTransition_qd7fb"), "WALK", "JUMP", SubResource("AnimationNodeStateMachineTransition_7r2ig"), "WALK", "FALL", SubResource("AnimationNodeStateMachineTransition_2ic3d"), "Start", "IDLE", SubResource("AnimationNodeStateMachineTransition_xnacg"), "JUMP", "FALL", SubResource("AnimationNodeStateMachineTransition_8wx5f"), "FALL", "LAND", SubResource("AnimationNodeStateMachineTransition_peu5n"), "LAND", "IDLE", SubResource("AnimationNodeStateMachineTransition_fmrjl"), "LAND", "WALK", SubResource("AnimationNodeStateMachineTransition_x0jdc")]
+transitions = ["DIE", "End", SubResource("AnimationNodeStateMachineTransition_24l5q"), "IDLE", "WALK", SubResource("AnimationNodeStateMachineTransition_84l88"), "WALK", "IDLE", SubResource("AnimationNodeStateMachineTransition_aiirx"), "IDLE", "JUMP", SubResource("AnimationNodeStateMachineTransition_qd7fb"), "WALK", "JUMP", SubResource("AnimationNodeStateMachineTransition_7r2ig"), "WALK", "FALL", SubResource("AnimationNodeStateMachineTransition_2ic3d"), "Start", "IDLE", SubResource("AnimationNodeStateMachineTransition_xnacg"), "JUMP", "FALL", SubResource("AnimationNodeStateMachineTransition_8wx5f"), "FALL", "LAND", SubResource("AnimationNodeStateMachineTransition_peu5n"), "LAND", "IDLE", SubResource("AnimationNodeStateMachineTransition_fmrjl"), "LAND", "WALK", SubResource("AnimationNodeStateMachineTransition_x0jdc"), "IDLE", "SHOOT_IDLE", SubResource("AnimationNodeStateMachineTransition_jtjiy"), "SHOOT_IDLE", "IDLE", SubResource("AnimationNodeStateMachineTransition_hp76g"), "JUMP", "DIE", SubResource("AnimationNodeStateMachineTransition_3gkuo"), "FALL", "DIE", SubResource("AnimationNodeStateMachineTransition_x503s"), "LAND", "DIE", SubResource("AnimationNodeStateMachineTransition_j2f0v"), "SHOOT_IDLE", "DIE", SubResource("AnimationNodeStateMachineTransition_nvn1q"), "IDLE", "DIE", SubResource("AnimationNodeStateMachineTransition_2jb7r"), "WALK", "DIE", SubResource("AnimationNodeStateMachineTransition_o3hg7")]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u3acb"]
+size = Vector2(7, 14)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_t4s5o"]
+radius = 53.0
 
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(0, -8)
+collision_mask = 7
 script = ExtResource("1_v7vmo")
+SPEED = 6000.0
+JUMP_VELOCITY = -400.0
+swing_strength = 100.0
+player_health = 3
 
 [node name="PlayerRevision4" type="Sprite2D" parent="."]
 texture = ExtResource("2_r4mtp")
 hframes = 10
-vframes = 4
+vframes = 5
 frame = 10
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
@@ -253,3 +304,32 @@ libraries = {
 }
 tree_root = SubResource("AnimationNodeStateMachine_gloq4")
 anim_player = NodePath("../AnimationPlayer")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+autostart = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="ClimbArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClimbArea"]
+position = Vector2(-0.5, 1)
+shape = SubResource("RectangleShape2D_u3acb")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_t4s5o")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_fp1ed")
+
+[connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_tree_animation_finished"]
+[connection signal="animation_started" from="AnimationTree" to="." method="_on_animation_tree_animation_started"]
+[connection signal="finished" from="AudioStreamPlayer2D" to="." method="_on_audio_stream_player_2d_finished"]
