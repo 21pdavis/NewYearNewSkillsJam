@@ -11,7 +11,8 @@ var segments_connected_to_root: Array[bool] = []
 var severed_joint_indexes: Array[int] = []
 var disabled_projectiles: Array[Area2D] = []
 
-var currently_being_climbed: bool = false
+var currently_being_climbed := false
+var swingable := true
 
 func _ready():
 	add_to_group("vine")
@@ -21,6 +22,11 @@ func _process(_delta):
 	for i in range(segments.size()):
 		segment_ups[i] = -segments[i].transform.y
 		
+	# prevent swinging on vines with attached == true and lifted thing hasn't been sliced off
+	for segment_connected in segments_connected_to_root:
+		if not segment_connected:
+			swingable = true
+	
 	# TODO, may not get around to this
 	# de-stretch vines to prevent joints from pulling apart
 	#if segments:
@@ -31,6 +37,9 @@ func _process(_delta):
 				#segments[i].position = compare_point.position + initial_segment_distances[i] * (-segment_ups[i - 1])
 		
 func generate_vine(attached: bool, attach_point: Node2D):
+	if attached:
+		swingable = false
+	
 	var spawn_direction := (attach_point.global_position - global_position).normalized()
 	var first_segment := vine_segment.instantiate() as RigidBody2D
 	
@@ -39,8 +48,6 @@ func generate_vine(attached: bool, attach_point: Node2D):
 	var sprite_height := segment_sprite.texture.get_height()
 	
 	var vine_num := (to_local(attach_point.global_position).length() / sprite_height) as int
-	print(vine_num)
-	
 	# create and position vines
 	# TODO: off by a pixel here, should add 1 in some places
 	for i in range(vine_num):

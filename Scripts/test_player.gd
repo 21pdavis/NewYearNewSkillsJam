@@ -15,6 +15,9 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var climbing := false
 var vine_being_climbed = null
 
+func _ready():
+	add_to_group("player")
+
 func _process(delta):
 	if Input.is_action_just_pressed("fire"):
 		var projectile_instance = projectile.instantiate()
@@ -80,7 +83,8 @@ func _physics_process(delta):
 			velocity.x = horizontal_direction * SPEED * delta
 		else:
 			var vine_segment := get_parent() as RigidBody2D
-			vine_segment.apply_impulse(swing_strength * horizontal_direction * delta * global_transform.x)
+			if vine_segment.get_parent().swingable:
+				vine_segment.apply_impulse(swing_strength * horizontal_direction * delta * global_transform.x)
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 	
