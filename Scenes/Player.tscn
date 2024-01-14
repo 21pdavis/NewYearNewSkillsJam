@@ -190,7 +190,6 @@ animation = &"WALK"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_24l5q"]
 switch_mode = 2
-advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_84l88"]
 
@@ -247,6 +246,7 @@ states/Start/position = Vector2(168, 180)
 states/WALK/node = SubResource("AnimationNodeAnimation_r81up")
 states/WALK/position = Vector2(656, 202)
 transitions = ["DIE", "End", SubResource("AnimationNodeStateMachineTransition_24l5q"), "IDLE", "WALK", SubResource("AnimationNodeStateMachineTransition_84l88"), "WALK", "IDLE", SubResource("AnimationNodeStateMachineTransition_aiirx"), "IDLE", "JUMP", SubResource("AnimationNodeStateMachineTransition_qd7fb"), "WALK", "JUMP", SubResource("AnimationNodeStateMachineTransition_7r2ig"), "WALK", "FALL", SubResource("AnimationNodeStateMachineTransition_2ic3d"), "Start", "IDLE", SubResource("AnimationNodeStateMachineTransition_xnacg"), "JUMP", "FALL", SubResource("AnimationNodeStateMachineTransition_8wx5f"), "FALL", "LAND", SubResource("AnimationNodeStateMachineTransition_peu5n"), "LAND", "IDLE", SubResource("AnimationNodeStateMachineTransition_fmrjl"), "LAND", "WALK", SubResource("AnimationNodeStateMachineTransition_x0jdc"), "IDLE", "SHOOT_IDLE", SubResource("AnimationNodeStateMachineTransition_jtjiy"), "SHOOT_IDLE", "IDLE", SubResource("AnimationNodeStateMachineTransition_hp76g"), "JUMP", "DIE", SubResource("AnimationNodeStateMachineTransition_3gkuo"), "FALL", "DIE", SubResource("AnimationNodeStateMachineTransition_x503s"), "LAND", "DIE", SubResource("AnimationNodeStateMachineTransition_j2f0v"), "SHOOT_IDLE", "DIE", SubResource("AnimationNodeStateMachineTransition_nvn1q"), "IDLE", "DIE", SubResource("AnimationNodeStateMachineTransition_2jb7r"), "WALK", "DIE", SubResource("AnimationNodeStateMachineTransition_o3hg7")]
+graph_offset = Vector2(-64, -19)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u3acb"]
 size = Vector2(7, 14)
