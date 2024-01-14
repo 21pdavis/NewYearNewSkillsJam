@@ -14,6 +14,8 @@ var shootTimer : Timer
 var isShooting : bool
 @onready var isDead = false
 @onready var fullyDead = false
+@onready var stepSoundDone = true
+@onready var stepDone = true
 @export var player_health: int
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -50,6 +52,10 @@ func _physics_process(delta):
 		if direction:
 			if is_on_floor():
 				state_machine.travel("WALK")
+				if stepSoundDone and stepDone:
+					$AudioStreamPlayer2D.play()
+					stepSoundDone = false
+				
 			velocity.x = direction * SPEED
 			if direction>0:
 				look_direction = 1
@@ -106,3 +112,20 @@ func shoot():
 func _on_animation_tree_animation_finished(anim_name):
 	if anim_name == "DIE":
 		fullyDead = true
+	if anim_name == "WALK":
+		stepDone = true
+		
+func _on_audio_stream_player_2d_finished():
+	stepSoundDone = true
+
+
+
+
+func _on_animation_player_animation_started(anim_name):
+	if anim_name == "WALK":
+		stepDone = false
+
+
+func _on_animation_tree_animation_started(anim_name):
+	if anim_name == "WALK":
+		stepDone = false

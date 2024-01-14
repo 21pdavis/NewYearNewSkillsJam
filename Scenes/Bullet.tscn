@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cgnk3mwhhreb"]
+[gd_scene load_steps=5 format=3 uid="uid://cgnk3mwhhreb"]
 
 [ext_resource type="Script" path="res://Scripts/Bullet.gd" id="1_c6t0n"]
 [ext_resource type="Texture2D" uid="uid://c2wo1fdoibmkn" path="res://Sprites/Entities/PlayerCharacter/Bullet.png" id="1_p4okc"]
+[ext_resource type="AudioStream" uid="uid://clk2cmevhsitp" path="res://Sound/NewShortGunshot.wav" id="3_hnrn2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rsbng"]
 size = Vector2(2, 1)
@@ -17,6 +18,11 @@ texture = ExtResource("1_p4okc")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_rsbng")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_hnrn2")
+volume_db = -16.152
+autoplay = true
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_area_exited"]
