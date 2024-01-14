@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c34pycls243pp"]
+[gd_scene load_steps=9 format=3 uid="uid://5mt88qogjot7"]
 
 [ext_resource type="Texture2D" uid="uid://br0acb1elel5e" path="res://Tiles/SpaceShip_Floor.png" id="1_xif1a"]
 [ext_resource type="Texture2D" uid="uid://c84fdo1xhjbvv" path="res://Tiles/Full_TileSet.png" id="2_oatod"]

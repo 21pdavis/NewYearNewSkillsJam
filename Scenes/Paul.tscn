@@ -9,14 +9,15 @@
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tguu2"]
 texture = ExtResource("1_3g64b")
+0:0/next_alternative_id = 2
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8.5, -8, 8.5, -8, 8.5, 8, -8.5, 8)
 1:0/0 = 0
 1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 1:0/0/physics_layer_0/angular_velocity = 0.0
-1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-9, -8, 9, -8, 9, 8, -9, 8)
 
 [sub_resource type="TileSet" id="TileSet_2ni64"]
 physics_layer_0/collision_layer = 2
@@ -59,7 +60,7 @@ position = Vector2(625, -110)
 rotation = -0.243513
 
 [node name="VineAttachPoint" parent="." instance=ExtResource("5_l4cex")]
-position = Vector2(465, -70)
+position = Vector2(456, -69)
 
 [node name="VineAttachPoint2" parent="." instance=ExtResource("5_l4cex")]
 position = Vector2(424, -101)
