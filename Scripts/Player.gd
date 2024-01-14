@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+signal health_changed
 
 @export var SPEED: float
 @export var JUMP_VELOCITY: float
@@ -40,7 +41,6 @@ func _physics_process(delta):
 		if velocity.y<0:
 			state_machine.travel("FALL")
 			
-
 	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept") and (is_on_floor() or climbing):
 		if climbing:

@@ -13,7 +13,6 @@ config_version=5
 config/name="NewYearNewSkills"
 run/main_scene="res://Scenes/Paul.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
-run/max_fps=30
 config/icon="res://Sprites/icon.svg"
 
 [display]
@@ -89,3 +88,4 @@ ui_right={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+renderer/rendering_method="gl_compatibility"

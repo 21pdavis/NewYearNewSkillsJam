@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://btlv82svwa3jw"]
+[gd_scene load_steps=10 format=3 uid="uid://btlv82svwa3jw"]
 
 [ext_resource type="Texture2D" uid="uid://bd1gesbstdfxc" path="res://Sprites/Tilesheets/TilesheetTest.png" id="1_3g64b"]
 [ext_resource type="Texture2D" uid="uid://cfy01nwt63k4i" path="res://Sprites/Characters/PlantFella1.png" id="3_hxyou"]
 [ext_resource type="PackedScene" uid="uid://by3ifh1e0x8xv" path="res://Scenes/Presets/plant_mass.tscn" id="4_l84i3"]
 [ext_resource type="PackedScene" uid="uid://hq5d3mmf1off" path="res://Scenes/Presets/vine_attach_point.tscn" id="5_l4cex"]
 [ext_resource type="PackedScene" uid="uid://ce1ukp83m18wd" path="res://Scenes/teleporter_pair.tscn" id="6_2glcu"]
+[ext_resource type="PackedScene" uid="uid://bw7meflc6njla" path="res://Scenes/Presets/GUI/hearts_container.tscn" id="7_xifgx"]
 [ext_resource type="PackedScene" uid="uid://cr8xo4su6snp" path="res://Scenes/Player.tscn" id="8_8rjg0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tguu2"]
@@ -76,5 +77,13 @@ position = Vector2(343, -56)
 SPEED = 6000.0
 JUMP_VELOCITY = -400.0
 swing_strength = 1000.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HeartsContainer" parent="CanvasLayer" instance=ExtResource("7_xifgx")]
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 52.0
+offset_bottom = 18.0
 
 [editable path="TeleporterPair"]
