@@ -19,6 +19,8 @@ var shootTimer : Timer
 @onready var state_machine = $AnimationTree.get("parameters/playback")
 @onready var spit_done = true
 @onready var player := get_tree().current_scene.get_node("Player")
+@onready var fireSoundDone = true
+#@onready var asp = $AudioStreamPlayer2D
 
 func _ready():
 	speed = 0
@@ -100,6 +102,9 @@ func take_damage(dmg:int):
 func die():
 	speed = 0
 	state_machine.travel("DIE")
+	if fireSoundDone:	
+		$AudioStreamPlayer2D.play()
+		fireSoundDone = false
 
 
 func _on_agro_radius_body_entered(body):
@@ -120,3 +125,9 @@ func _on_animation_tree_animation_finished(anim_name):
 func _on_animation_tree_animation_started(anim_name):
 	if anim_name == "SPIT":
 		spit_done = false
+		
+
+
+
+func _on_audio_stream_player_2d_finished():
+	fireSoundDone = true

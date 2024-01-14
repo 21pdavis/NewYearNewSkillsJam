@@ -74,8 +74,6 @@ position = Vector2(110, -42)
 
 [node name="Player" parent="." instance=ExtResource("8_8rjg0")]
 position = Vector2(343, -56)
-SPEED = 6000.0
-JUMP_VELOCITY = -400.0
 swing_strength = 1000.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]

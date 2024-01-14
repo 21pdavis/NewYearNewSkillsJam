@@ -1,26 +1,183 @@
-[gd_scene load_steps=4 format=3 uid="uid://ce1ukp83m18wd"]
+[gd_scene load_steps=24 format=3 uid="uid://ce1ukp83m18wd"]
 
-[ext_resource type="Script" path="res://Scenes/teleporter_pair.gd" id="1_odrbs"]
-[ext_resource type="Texture2D" uid="uid://dqlkwyewbllpb" path="res://Sprites/Teleporter.png" id="2_fp3ow"]
+[ext_resource type="Script" path="res://Scripts/teleporter_pair.gd" id="1_hbedl"]
+[ext_resource type="Texture2D" uid="uid://brkr6h8pwb1ew" path="res://Sprites/Teleporter_Sprite_Sheet.png" id="2_82cpw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h5nc8"]
-size = Vector2(28, 2)
+size = Vector2(26, 2)
+
+[sub_resource type="Animation" id="Animation_5iilq"]
+resource_name = "send"
+length = 0.75
+step = 0.075
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.075, 0.15, 0.225, 0.3, 0.375, 0.45, 0.525, 0.6, 0.675),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 1), Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1), Vector2i(3, 1), Vector2i(4, 1), Vector2i(5, 1), Vector2i(6, 1), Vector2i(7, 1), Vector2i(8, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_w2aup"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_pxc6b"]
+resource_name = "idle"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8xexl"]
+_data = {
+"RESET": SubResource("Animation_w2aup"),
+"idle": SubResource("Animation_pxc6b"),
+"send": SubResource("Animation_5iilq")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hxd34"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_y83pu"]
+animation = &"send"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_y3orh"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7mr7e"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lnrv5"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_rn6qu"]
+states/idle/node = SubResource("AnimationNodeAnimation_hxd34")
+states/idle/position = Vector2(448, 74)
+states/send/node = SubResource("AnimationNodeAnimation_y83pu")
+states/send/position = Vector2(576, 160)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_y3orh"), "idle", "send", SubResource("AnimationNodeStateMachineTransition_7mr7e"), "send", "idle", SubResource("AnimationNodeStateMachineTransition_lnrv5")]
+graph_offset = Vector2(-318, -4)
+
+[sub_resource type="Animation" id="Animation_udc5g"]
+resource_name = "idle"
+length = 0.075
+loop_mode = 1
+step = 0.075
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_m5rq0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ebomv"]
+resource_name = "receive"
+length = 0.375
+step = 0.075
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.075, 0.15, 0.225, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 2), Vector2i(1, 2), Vector2i(2, 2), Vector2i(3, 2), Vector2i(4, 2)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_g6k4i"]
+_data = {
+"RESET": SubResource("Animation_m5rq0"),
+"idle": SubResource("Animation_udc5g"),
+"receive": SubResource("Animation_ebomv")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_17xso"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_b6ue8"]
+animation = &"receive"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bmaln"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_amprr"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_exyhh"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_g7f1u"]
+states/idle/node = SubResource("AnimationNodeAnimation_17xso")
+states/idle/position = Vector2(464, 81)
+states/receive/node = SubResource("AnimationNodeAnimation_b6ue8")
+states/receive/position = Vector2(540, 155)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_bmaln"), "idle", "receive", SubResource("AnimationNodeStateMachineTransition_amprr"), "receive", "idle", SubResource("AnimationNodeStateMachineTransition_exyhh")]
+graph_offset = Vector2(-203, -36)
 
 [node name="TeleporterPair" type="Node2D"]
 position = Vector2(439, -49)
-script = ExtResource("1_odrbs")
+script = ExtResource("1_hbedl")
 
 [node name="Teleporter1" type="StaticBody2D" parent="."]
 position = Vector2(-51, 0)
 
 [node name="Sprite" type="Sprite2D" parent="Teleporter1"]
-position = Vector2(-1, -1)
-texture = ExtResource("2_fp3ow")
-offset = Vector2(0, 0.5)
+position = Vector2(-1, -7)
+texture = ExtResource("2_82cpw")
+hframes = 10
+vframes = 3
+frame = 10
 
 [node name="Collider" type="CollisionPolygon2D" parent="Teleporter1"]
 position = Vector2(-1, 1)
-polygon = PackedVector2Array(-20, 0, -15, -3, 15, -3, 20, 0)
+polygon = PackedVector2Array(-16, 0, -13, -3, 13, -3, 16, 0)
 
 [node name="InteractionArea" type="Area2D" parent="Teleporter1"]
 
@@ -28,20 +185,49 @@ polygon = PackedVector2Array(-20, 0, -15, -3, 15, -3, 20, 0)
 position = Vector2(-1, -3)
 shape = SubResource("RectangleShape2D_h5nc8")
 
+[node name="AnimationTree" type="AnimationTree" parent="Teleporter1"]
+libraries = {
+"": SubResource("AnimationLibrary_8xexl")
+}
+tree_root = SubResource("AnimationNodeStateMachine_rn6qu")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Teleporter1"]
+libraries = {
+"": SubResource("AnimationLibrary_8xexl")
+}
+
 [node name="Teleporter2" type="StaticBody2D" parent="."]
-position = Vector2(112, 0)
+position = Vector2(20, 0)
 
 [node name="Sprite" type="Sprite2D" parent="Teleporter2"]
-position = Vector2(-1, -1)
-texture = ExtResource("2_fp3ow")
-offset = Vector2(0, 0.5)
+position = Vector2(-1, -7)
+texture = ExtResource("2_82cpw")
+hframes = 10
+vframes = 3
 
 [node name="Collider" type="CollisionPolygon2D" parent="Teleporter2"]
 position = Vector2(-1, 1)
-polygon = PackedVector2Array(-20, 0, -15, -3, 15, -3, 20, 0)
+polygon = PackedVector2Array(-16, 0, -13, -3, 13, -3, 16, 0)
 
 [node name="InteractionArea" type="Area2D" parent="Teleporter2"]
 
 [node name="InteractionShape" type="CollisionShape2D" parent="Teleporter2/InteractionArea"]
 position = Vector2(-1, -3)
 shape = SubResource("RectangleShape2D_h5nc8")
+
+[node name="AnimationTree" type="AnimationTree" parent="Teleporter2"]
+libraries = {
+"": SubResource("AnimationLibrary_g6k4i")
+}
+tree_root = SubResource("AnimationNodeStateMachine_g7f1u")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Teleporter2"]
+libraries = {
+"": SubResource("AnimationLibrary_g6k4i")
+}
+
+[connection signal="animation_finished" from="Teleporter1/AnimationTree" to="." method="_on_animation_tree_animation_send_finished"]
+[connection signal="animation_started" from="Teleporter1/AnimationTree" to="." method="_on_animation_tree_animation_send_started"]
+[connection signal="animation_finished" from="Teleporter2/AnimationTree" to="." method="_on_animation_tree_animation_received_finished"]
