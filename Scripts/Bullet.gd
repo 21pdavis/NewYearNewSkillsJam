@@ -23,22 +23,23 @@ func direction(direct:bool):
 func _physics_process(delta):
 	position += (bullet_velocity.normalized() * delta * speed)
 	
-	var space_state = get_world_2d().direct_space_state
-	var ray_start := global_position + sprite_width * (-transform.x if speed == 500 else transform.x)
-	var ray_end := prev_position + sprite_width * (transform.x if speed == 500 else -transform.x)
-	var query := PhysicsRayQueryParameters2D.create(ray_start, prev_position)
-	var result = space_state.intersect_ray(query)
-	
-	if result:
-		var intersected_object := result.collider as Node2D
-		if "vine_segment" in intersected_object.get_groups():
-			print('in result')
-			var vine = intersected_object.get_parent()
-			if not vine.currently_being_climbed:
-				var segment_index = vine.segments.find(intersected_object)
-				vine.sever_segment(segment_index)
-			
-	prev_position = global_position
+	if prev_position != Vector2.ZERO:
+		var space_state = get_world_2d().direct_space_state
+		var ray_start := global_position + sprite_width * (-transform.x if speed == 500 else transform.x)
+		var ray_end := prev_position + sprite_width * (transform.x if speed == 500 else -transform.x)
+		var query := PhysicsRayQueryParameters2D.create(ray_start, prev_position)
+		var result = space_state.intersect_ray(query)
+		
+		if result:
+			var intersected_object := result.collider as Node2D
+			if "vine_segment" in intersected_object.get_groups():
+				print('in result')
+				var vine = intersected_object.get_parent()
+				if not vine.currently_being_climbed:
+					var segment_index = vine.segments.find(intersected_object)
+					vine.sever_segment(segment_index)
+				
+		prev_position = global_position
 	
 func destroy():
 	queue_free()

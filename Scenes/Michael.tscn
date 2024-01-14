@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://c8mbw5if4i6s3"]
+[gd_scene load_steps=10 format=3 uid="uid://c8mbw5if4i6s3"]
 
 [ext_resource type="Texture2D" uid="uid://br0acb1elel5e" path="res://Tiles/SpaceShip_Floor.png" id="1_hyh6t"]
 [ext_resource type="Texture2D" uid="uid://c84fdo1xhjbvv" path="res://Tiles/Full_TileSet.png" id="2_ymf4k"]
 [ext_resource type="PackedScene" uid="uid://cno0tddk0ioar" path="res://Scenes/paralax_background.tscn" id="3_q3bru"]
 [ext_resource type="PackedScene" uid="uid://cr8xo4su6snp" path="res://Scenes/Player.tscn" id="4_3w4vs"]
 [ext_resource type="PackedScene" uid="uid://difemu0y1irm8" path="res://Scenes/enemy.tscn" id="5_gjs3k"]
+[ext_resource type="PackedScene" uid="uid://bw7meflc6njla" path="res://Scenes/Presets/GUI/hearts_container.tscn" id="6_haib5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pjid2"]
 texture = ExtResource("1_hyh6t")
@@ -150,3 +151,13 @@ position = Vector2(0, 57)
 
 [node name="Enemy" parent="." instance=ExtResource("5_gjs3k")]
 position = Vector2(73, 57)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HeartsContainer" parent="CanvasLayer" instance=ExtResource("6_haib5")]
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 52.0
+offset_bottom = 18.0
+
+[connection signal="health_changed" from="Player" to="CanvasLayer/HeartsContainer" method="_on_player_health_changed"]

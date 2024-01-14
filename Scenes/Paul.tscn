@@ -61,10 +61,10 @@ position = Vector2(625, -110)
 rotation = -0.243513
 
 [node name="VineAttachPoint" parent="." instance=ExtResource("5_l4cex")]
-position = Vector2(456, -69)
+position = Vector2(456, -56)
 
 [node name="VineAttachPoint2" parent="." instance=ExtResource("5_l4cex")]
-position = Vector2(424, -101)
+position = Vector2(426, -71)
 rotation = -0.349245
 
 [node name="TeleporterPair" parent="." instance=ExtResource("6_2glcu")]

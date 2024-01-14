@@ -55,6 +55,7 @@ func _physics_process(delta):
 			reparent(get_tree().current_scene)
 
 		velocity.y = JUMP_VELOCITY
+		print(velocity.y)
 		if velocity.y>0:
 			state_machine.travel("JUMP")
 
@@ -141,6 +142,7 @@ func _physics_process(delta):
 func take_damage(dmg:int):
 	print("OW")
 	player_health -= dmg
+	health_changed.emit(player_health)
 	if player_health <= 0:
 		die()
 
@@ -153,7 +155,7 @@ func die():
 func shoot():
 	var bullet = bulletPath.instantiate()
 	bullet.direction(not sprite.flip_h)
-	get_parent().add_child(bullet)
+	get_tree().current_scene.add_child(bullet)
 	isShooting = true
 	if sprite.flip_h == false:
 		bullet.position = myMarker.global_position

@@ -1,6 +1,5 @@
 extends Area2D
 
-const Main_tscn = preload("res://Scenes/Michael.tscn")
 #var Main_instance = Main_tscn.instantiate()
 #add_child(Main_instance)
 #@onready var Main_instance = get_tree().current_scene
@@ -25,10 +24,10 @@ func _on_area_entered(area):
 	destroy()
 
 
-func _on_body_entered(body):
+func _on_body_entered(body: PhysicsBody2D):
 	#print(body.name)
 	if "Player" in body.get_groups():
-		body.take_damage(200)
+		body.take_damage(1)
 	destroy()
 
 
