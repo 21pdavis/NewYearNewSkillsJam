@@ -403,7 +403,7 @@ offset_bottom = 134.0
 scale = Vector2(0.34, 0.34)
 theme_override_fonts/normal_font = ExtResource("12_onf4u")
 theme_override_font_sizes/normal_font_size = 16
-text = "Good afternoon soldier!  Today's mission is of high importance.  Our link to the Andromeda galaxy has been severed by the loss of our base on planet 89-C. Taken by the... local flora.  We need to re-establish connection with this station, or our deployments local to Andromeda will be without communication with the Principle Fleet.  I know I can count on you, unit 763.
+text = "Good afternoon soldier!  Today's mission is of high importance.  Our link to the Andromeda galaxy has been severed by the loss of our base on planet 89-C. Taken by the... local flora.  We need to re-establish connection with this station, or our deployments local to Andromeda will be without communication with the Principle Fleet.  I know I can count on you, Unit 763.
 "
 fit_content = true
 
@@ -416,7 +416,7 @@ offset_bottom = 145.0
 scale = Vector2(0.34, 0.34)
 theme_override_fonts/normal_font = ExtResource("12_onf4u")
 theme_override_font_sizes/normal_font_size = 16
-text = "Great work!  The fleet can always rely on you, unit 763.  We can now re-establish connection with the Andromeda sub-fleet.  Now get some rest, we can't have our best unit running on fumes when duty calls."
+text = "Great work!  The fleet can always rely on you, Unit 763.  We can now re-establish connection with the Andromeda sub-fleet.  Now get some rest, we can't have our best unit running on fumes when duty calls."
 fit_content = true
 
 [node name="CommanderEndPoint" type="Node2D" parent="."]
